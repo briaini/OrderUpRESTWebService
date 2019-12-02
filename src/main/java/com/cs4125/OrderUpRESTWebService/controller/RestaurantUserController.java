@@ -17,6 +17,20 @@ public class RestaurantUserController {
         // This returns a JSON or XML with the users
         return restaurantUserRepository.findAll();
     }
+
+    @PostMapping(path="/add") // Map ONLY POST Requests
+    public @ResponseBody String addRestaurant (@RequestParam String username
+            , @RequestParam String email, @RequestParam String password) {
+        // @ResponseBody means the returned String is the response, not a view name
+        // @RequestParam means it is a parameter from the GET or POST request
+
+        RestaurantUser r = new RestaurantUser();
+        r.setUsername(username);
+        r.setEmail(email);
+        r.setPassword(password);
+        restaurantUserRepository.save(r);
+        return "Saved";
+    }
 }
 
 
