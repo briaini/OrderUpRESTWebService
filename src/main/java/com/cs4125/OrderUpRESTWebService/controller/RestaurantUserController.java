@@ -28,6 +28,7 @@ public class RestaurantUserController {
         r.setUsername(username);
         r.setEmail(email);
         r.setPassword(password);
+        r.setName(username);
         restaurantUserRepository.save(r);
         return "Saved";
     }
