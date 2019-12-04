@@ -38,10 +38,12 @@ public class UserController {
     public @ResponseBody
     Map<String,String> authenticateLogin(@RequestParam String username, @RequestParam String password) {
         List<User> matchingUserList = userRepository.findByUsername(username);
-        if(!matchingUserList.isEmpty())
-            return Collections.singletonMap("response", "good");
+        if(matchingUserList.isEmpty())
+            return Collections.singletonMap(username, "credentials not valid");
+        else if(!(matchingUserList.get(0).getPassword().equals(password)))
+            return Collections.singletonMap(username, "credentials not valid");
         else
-            return Collections.singletonMap("response", "bad");
+            return Collections.singletonMap("response", "good");
     }
 
     @GetMapping(path="/all")
